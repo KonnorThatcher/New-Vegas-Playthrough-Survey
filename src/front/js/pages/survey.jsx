@@ -1,8 +1,20 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 const Survey = () => {
+
     const [enjoyment, setEnjoyment] = useState("")
+    const [faction, setFaction] = useState("")
+    const [dlc, setDLC] = useState("")
+    const [companions, setCompanions] = useState([])
+    //useEffect(() =>  {
+    //    console.log(enjoyment)
+    //}, [enjoyment])
+    //useEffect(() =>  {
+    //    console.log(dlc)
+    //}, [dlc])
+
     const companionsArray = ["Arcade", "Boone", "Lily", "Raul", "Cass", "Veroxica", "ED-E", "Rex"]
+
     return (
       <div className='mx-auto w-75 bg-success p-3'>
           <div className='d-flex flex-column justify-content-center align-items-start mb-2'>
@@ -25,7 +37,7 @@ const Survey = () => {
               </div>
               <div className='d-flex flex-column justify-content-center align-items-start mb-2'>
                   <h4 className='text-start'>Which faction did you ultimately join for the Second Battle of the Hoover Dam?</h4>
-                  <select className='form-select' name="hooverDam" id="">
+                  <select className='form-select' value={faction} onChange={e => setFaction(e.target.value)} name="hooverDam" id="">
                       <option value="">Select Faction</option>
                       <option value="The New California Republic">The New California Republic</option>
                       <option value="Caesar's Legion">Caesar's Legion</option>
@@ -36,7 +48,7 @@ const Survey = () => {
               </div>
               <div className='d-flex flex-column justify-content-center align-items-start mb-2'>
                   <h4 className='text-start'>What was your favorite DLC Campaign to play?</h4>
-                  <select className='form-select' name="dlc" id="">
+                  <select className='form-select' value={dlc} onChange={e => setDLC(e.target.value)} name="dlc" id="">
                       <option value="">Select DLC</option>
                       <option value="Dead Money">Dead Money</option>
                       <option value="Honest Hearts">Honest Hearts</option>
@@ -50,7 +62,11 @@ const Survey = () => {
                 {companionsArray.map((comp, idx) => {
                     return (
                         <div className='form-check' key={idx}>
-                            <input className="form-check-input" type="checkbox" />
+                            <input 
+                            className="form-check-input" 
+                            type="checkbox" 
+                            checked={companions.filter((x) => x === comp).length > 0}
+                             />
                             <h5 className='form-check-label'>{comp}</h5>
                         </div>
                     )
